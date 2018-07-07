@@ -15,5 +15,5 @@ password = input("Password [> ")
 data = ih.open_api(username, password)
 api = data['api']
 follows = data['follows']
-not_follows = ih.unfollow_not_followers(api)
+not_follows = ih.unfollow_not_followers(api, False)
 print(not_follows)

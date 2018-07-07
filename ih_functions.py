@@ -32,7 +32,7 @@ def open_api(username, password):
     return data
 
 
-def unfollow_not_followers(api):
+def unfollow_not_followers(api, delete=True):
     """
     Unfollow useras that don't follow you
 
@@ -48,5 +48,6 @@ def unfollow_not_followers(api):
     for i in range(len(followings)):
         if followings[i]['username'] not in followers_name:
             not_follows.append(followings[i]['username'])
-            #api.unfollow(followings[i]['pk'])
+            if delete:
+                api.unfollow(followings[i]['pk'])
     return not_follows
