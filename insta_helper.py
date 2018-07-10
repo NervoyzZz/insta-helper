@@ -10,6 +10,7 @@ follow other users
 import ih_functions as ih
 from InstagramAPI import InstagramAPI
 import os.path
+import random
 
 
 username = input("Username [> ")
@@ -25,4 +26,8 @@ else:
 # print(not_follows)
 # estimation = ih.user_estimate(data['api'], data['api'].username_id)
 # print(estimation)
-
+followings = data['api'].getTotalSelfFollowings()
+user = random.choice(followings)
+print(user['username'])
+res = ih.user_followers_like_follow_helper(data, user['pk'], 10)
+print(res)

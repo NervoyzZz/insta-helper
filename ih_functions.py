@@ -129,7 +129,7 @@ def give_likes_to_user(api, user_id, likes_count=5, sleep_time=0.5):
     # get user feed
     feed = api.getTotalUserFeed(user_id)
     feed_len = len(feed)
-    likes = likes_count if feed_len > likes_count else (feed_len / 2)
+    likes = likes_count if feed_len > likes_count else (feed_len // 2)
     for i in range(likes):
         # get random media
         media_id = random.choice(feed)['id']
@@ -203,12 +203,15 @@ def user_followers_like_follow_helper(data, user_id, users_count=25,
     followers = api.getTotalFollowers(user_id)
     # choose some users
     users_count = users_count if users_count < len(followers) else (
-        len(followers) / 2)
-    for i in range(user_count):
+        len(followers) // 2)
+    for i in range(users_count):
         user = random.choice(followers)
-        status = user_like_follow(data, user['pk'], likes_count,
-                                  sleep_time, thresholds)
-        result[user['username']] = status
+        try:
+            status = user_like_follow(data, user['pk'], likes_count,
+                                      sleep_time, thresholds)
+            result[user['username']] = status
+        except:
+            print('ERROR')
     # save data
     save_data(api.username.lower() + '.api', data)    
     return result
