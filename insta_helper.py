@@ -8,12 +8,16 @@ follow other users
 """
 
 import ih_functions as ih
+from InstagramAPI import InstagramAPI
+import os.path
+
 
 username = input("Username [> ")
-password = input("Password [> ")
+file_name = username.lower() + '.api'
 
-data = ih.open_api(username, password)
-api = data['api']
-follows = data['follows']
-not_follows = ih.unfollow_not_followers(api, False)
-print(not_follows)
+if os.path.exists(file_name):
+    data = ih.load_data(file_name)
+else:
+    password = input("Password [> ")
+    data = ih.open_api(username, password)
+

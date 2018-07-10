@@ -50,8 +50,8 @@ def open_api(username, password):
         data = load_data(file_name)
     else:
         api = InstagramAPI(username=username, password=password)
-        follows = []
-        api.login()
+        api.login()        
+        follows = init_no_need_to_follow_list(api)
         data = {'api': api, 'follows': follows}
         save_data(file_name, data)
     return data
@@ -77,3 +77,23 @@ def unfollow_not_followers(api, delete=True):
             if delete:
                 api.unfollow(followings[i]['pk'])
     return not_follows
+
+
+def init_no_need_to_follow_list(api):
+    """
+    create list for data dictionary where users that
+    there's no need to follow in it.
+
+    :param api: api param from data dictionary
+    :return: list with no need to follow users
+    """
+    follows = []
+    self_followers = api.getTotalSelfFollowers()
+    self_followings = api.getTotalSelfFollowings()
+    for i in range(len(self_followers)):
+        follows.append(self_followers[i]['pk'])
+    for i in range(len(self_followings)):
+        s_f = self_followings[i]['pk']
+        if s_f not in follows:
+            follows.append(self_followings[i]['pk'])
+    return follows
