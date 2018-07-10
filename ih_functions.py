@@ -139,8 +139,43 @@ def give_likes_to_user(api, user_id, likes_count=5, sleep_time=0.5):
         api.like(media_id)
         # wait some_time
         time.sleep(sleep_time)
-    
-        
+
+
+def user_like_follow(data, user_id, likes_count=5,
+                     sleep_time=0.5, thresholds=(0.5, 1)):
+    """
+    Function that estimate user and then decide to like him and follow
+
+    :param :data: data dictionary with 'api' and 'follows' keys
+    :param :user_id: user id that you want to like/follow
+    :param :likes_count: how much likes give to user
+    :param :sleep_time: dellay between likes
+    :param :thresholds: min border and max border to likes
+                        if estimation less then min => user will not
+                        follow you back
+                        if estimation greater then max => user can follow
+                        you without your following (or he can be not true
+                        user)
+    :return: bool True if follows user and False if not follows
+    """
+    api = data['api']
+    follows = data['follows']
+    # check user
+    # if he in our 'black' list
+    if user_id in follows:
+        return False
+    # estimate him
+    estimate = user_estimate(api, user_id)
+    # give him likes anyway
+    give_likes_to_user(api, user_id, likes_count, sleep_time)
+    # decide to follow him
+    if estimate < thresholds[0] or estimate > thresholds[1]:
+        return False
+    else:
+        api.follow(user_id)
+        follows.append(user_id)
+        data['follows'] = follows
+        return True
         
     
     
