@@ -129,9 +129,7 @@ def give_likes_to_user(api, user_id, likes_count=5, sleep_time=0.5):
     # get user feed
     feed = api.getTotalUserFeed(user_id)
     feed_len = len(feed)
-    likes = likes_count if feed_len > likes_count else (feed_len
-                                                        / (likes_count
-                                                           + 1))
+    likes = likes_count if feed_len > likes_count else (feed_len / 2)
     for i in range(likes):
         # get random media
         media_id = random.choice(feed)['id']
@@ -176,7 +174,41 @@ def user_like_follow(data, user_id, likes_count=5,
         follows.append(user_id)
         data['follows'] = follows
         return True
-        
-    
-    
 
+
+def user_followers_like_follow_helper(data, user_id, users_count=25,
+                                      likes_count=5, sleep_time=0.5,
+                                      thresholds=(0.5, 1)):
+    """
+    Helper function. It gets user followers list. Then choice
+    some users and like and follow them.
+
+    :param :data: data dictionary with 'api' and 'follows' keys
+    :param :user_id: user id. His followers function will like and follow
+    :param :user_count: how much users function should like/follow
+    :param :likes_count: how much gives likes
+    :param :sleep_time: dellay between likes
+    :param :thresholds: min border and max border to likes
+                        if estimation less then min => user will not
+                        follow you back
+                        if estimation greater then max => user can follow
+                        you without your following (or he can be not true
+                        user)
+    :return: dictionary {'user_name': staus} where status ia True or False
+             follow this user or not
+    """
+    result = {}
+    api = data['api']
+    # get user followers
+    followers = api.getTotalFollowers(user_id)
+    # choose some users
+    users_count = users_count if users_count < len(followers) else (
+        len(followers) / 2)
+    for i in range(user_count):
+        user = random.choice(followers)
+        status = user_like_follow(data, user['pk'], likes_count,
+                                  sleep_time, thresholds)
+        result[user['username']] = status
+    # save data
+    save_data(api.username.lower() + '.api', data)    
+    return result
