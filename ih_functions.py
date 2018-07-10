@@ -5,6 +5,8 @@ Other functions that is make script functionality
 from InstagramAPI import InstagramAPI
 import pickle
 import os.path
+import random
+import time
 
 
 def load_data(file_name):
@@ -88,6 +90,8 @@ def init_no_need_to_follow_list(api):
     :return: list with no need to follow users
     """
     follows = []
+    # no need to follow user that you've alredy followed
+    # or that follows you
     self_followers = api.getTotalSelfFollowers()
     self_followings = api.getTotalSelfFollowings()
     for i in range(len(self_followers)):
@@ -110,3 +114,34 @@ def user_estimate(api, user_id):
     follower_count = len(api.getTotalFollowers(user_id))
     followings_count = len(api.getTotalFollowings(user_id))
     return followings_count / follower_count
+
+
+def give_likes_to_user(api, user_id, likes_count=5, sleep_time=0.5):
+    """
+    That function gives likes to random media for user
+
+    :param :api: api param from data dictionary
+    :param :user_id: user id Whom likes should be gived
+    :param :likes_count: how much likes give to user
+    :param :sleep_time: dellay between likes
+    :return: None
+    """
+    # get user feed
+    feed = api.getTotalUserFeed(user_id)
+    feed_len = len(feed)
+    likes = likes_count if feed_len > likes_count else (feed_len
+                                                        / (likes_count
+                                                           + 1))
+    for i in range(likes):
+        # get random media
+        media_id = random.choice(feed)['id']
+        # and like it
+        api.like(media_id)
+        # wait some_time
+        time.sleep(sleep_time)
+    
+        
+        
+    
+    
+
