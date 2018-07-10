@@ -97,3 +97,16 @@ def init_no_need_to_follow_list(api):
         if s_f not in follows:
             follows.append(self_followings[i]['pk'])
     return follows
+
+
+def user_estimate(api, user_id):
+    """
+    Estimation of user. Should we follow him?
+
+    :param :api: api param from data dictionary
+    :param :user_id: id of user whom we want to estimate
+    :return: fraction of followings/followers. Just a float number
+    """
+    follower_count = len(api.getTotalFollowers(user_id))
+    followings_count = len(api.getTotalFollowings(user_id))
+    return followings_count / follower_count

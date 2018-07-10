@@ -21,3 +21,8 @@ else:
     password = input("Password [> ")
     data = ih.open_api(username, password)
 
+# not_follows = ih.unfollow_not_followers(data['api'])
+# print(not_follows)
+# estimation = ih.user_estimate(data['api'], data['api'].username_id)
+# print(estimation)
+
