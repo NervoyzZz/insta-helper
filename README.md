@@ -1,12 +1,12 @@
 # Insta Helper
-I have and Instagram profile and I noticed that I do same actions every day. So I decided to automate this process.
+I have an Instagram profile and I noticed that I do same actions every day. So I decided to automate this process.
 ## Unfollow users
 First of all I don't want to follow guys that don't follow me. Maybe in future I'll want to subscribe some users that can not follow me but not now.
 use `--unfollow=1` as command line argument to clean up your followings list.
 ## Profile estimation
-I want to know my followings/followers coefficient. So use `--estimate` as command line argument to know this coef.
+I want to know my followings/followers coefficient. So use `--estimate=1` as command line argument to know this coef.
 ## Profile boosting
-So and main part of my script is auto like and follow users. So script choose random guy from your followings and go to his followers. 
+Main part of my script is auto-like and auto-follow users. So script choose random guy from your followings and go to his followers. 
 Then it choose some random guys from list and gives them likes and follows them. But not every gyu will be followed. Script estimate every profile
 and then decide to only-like user or like-follow him. For example if user has a lot of followers and a litle bit followings chance that he will follow
 you is tiny, so let's only-like him. Another example if user follow a lot of men but has not enough followers you has chance that he will follow you
