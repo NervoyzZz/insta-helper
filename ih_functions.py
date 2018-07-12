@@ -1,10 +1,18 @@
+# ------------------------------------------------------------------------------
+# Copyright © 2018 Daniil Nepryahin
+# contacts: <nervoidaz@yandex.ru>
+# License: https://opensource.org/licenses/MIT
+# ------------------------------------------------------------------------------
+
+
 """
 Other functions that is make script functionality
 """
 
 from InstagramAPI import InstagramAPI
-import pickle
+
 import os.path
+import pickle
 import random
 import time
 

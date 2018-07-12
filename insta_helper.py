@@ -1,5 +1,13 @@
 # !usr/bin/python3
 
+
+# ------------------------------------------------------------------------------
+# Copyright © 2018 Daniil Nepryahin
+# contacts: <nervoidaz@yandex.ru>
+# License: https://opensource.org/licenses/MIT
+# ------------------------------------------------------------------------------
+
+
 """
 script that can do something boring routine in Instagram such as
 unfollow not following you users
@@ -8,10 +16,12 @@ follow other users
 """
 
 import argparse
-import ih_functions as ih
-from InstagramAPI import InstagramAPI
 import os.path
 import random
+
+import ih_functions as ih
+
+from InstagramAPI import InstagramAPI
 
 
 def main(args):
