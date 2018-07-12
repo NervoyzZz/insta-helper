@@ -116,7 +116,7 @@ def user_estimate(api, user_id):
     return followings_count / follower_count
 
 
-def give_likes_to_user(api, user_id, likes_count=5, sleep_time=0.5):
+def give_likes_to_user(api, user_id, likes_count=10, sleep_time=1):
     """
     That function gives likes to random media for user
 
@@ -139,8 +139,8 @@ def give_likes_to_user(api, user_id, likes_count=5, sleep_time=0.5):
         time.sleep(sleep_time)
 
 
-def user_like_follow(data, user_id, likes_count=5,
-                     sleep_time=0.5, thresholds=(0.5, 1)):
+def user_like_follow(data, user_id, likes_count=10,
+                     sleep_time=1, thresholds=(0.7, 1.2)):
     """
     Function that estimate user and then decide to like him and follow
 
@@ -177,8 +177,8 @@ def user_like_follow(data, user_id, likes_count=5,
 
 
 def user_followers_like_follow_helper(data, user_id, users_count=25,
-                                      likes_count=5, sleep_time=0.5,
-                                      thresholds=(0.5, 1)):
+                                      likes_count=10, sleep_time=1,
+                                      thresholds=(0.7, 1.2)):
     """
     Helper function. It gets user followers list. Then choice
     some users and like and follow them.
