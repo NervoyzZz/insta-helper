@@ -41,7 +41,10 @@ def main(args):
     user = random.choice(followings)
     print(user['username'])
     res = ih.user_followers_like_follow_helper(data, user['pk'],
-                                               25, 10, 1, (0.7, 1.2))
+                                               args.user_count,
+                                               args.likes_count,
+                                               (args.min_estimate,
+                                                args.max_estimate))
     print(res)
             
 
@@ -55,9 +58,17 @@ if __name__ == '__main__':
     parser.add_argument('--username', help='your username', default='')
     parser.add_argument('--password', help='your password', default='')
     parser.add_argument('--unfollow', help='0 to not unfollow and 1 to'
-                        'unfollow not followers', type=int, default=0)
+                        ' unfollow not followers', type=int, default=0)
     parser.add_argument('--estimate', help='0 or 1. Estimation of your'
-                        'profile (fraction followings/followers)',
+                        ' profile (fraction followings/followers)',
                         type=int, default=0)
+    parser.add_argument('--user_count', help='How many users like and'
+                        ' follow', type=int, default=25)
+    parser.add_argument('---likes_count', help='How many likes give'
+                        ' to users', type=int, default=10)
+    parser.add_argument('--min_estimate', help='min estimation value'
+                        ' for following user', type=float, default=0.7)
+    parser.add_argument('--max_estimate', help='max estimation value'
+                        ' for following user', type=float, default=1.2)
     args = parser.parse_args()
     main(args)

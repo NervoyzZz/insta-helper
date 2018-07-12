@@ -146,7 +146,7 @@ def give_likes_to_user(api, user_id, likes_count=10, sleep_time=1):
 
 
 def user_like_follow(data, user_id, likes_count=10,
-                     sleep_time=1, thresholds=(0.7, 1.2)):
+                     thresholds=(0.7, 1.2), sleep_time=1):
     """
     Function that estimate user and then decide to like him and follow
 
@@ -183,8 +183,9 @@ def user_like_follow(data, user_id, likes_count=10,
 
 
 def user_followers_like_follow_helper(data, user_id, users_count=25,
-                                      likes_count=10, sleep_time=1,
-                                      thresholds=(0.7, 1.2)):
+                                      likes_count=10,
+                                      thresholds=(0.7, 1.2),
+                                      sleep_time=1):
     """
     Helper function. It gets user followers list. Then choice
     some users and like and follow them.
