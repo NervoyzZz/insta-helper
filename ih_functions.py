@@ -50,6 +50,12 @@ def open_api(username, password):
     file_name = username.lower() + '.api'
     if os.path.exists(file_name):
         data = load_data(file_name)
+        # update not follow list
+        follows = init_no_need_to_follow_list(data['api'])
+        for f in follows:
+            if f not in data['follows']:
+                data['follows'].append(f)
+        save_data(data['api'].username.lower() + '.api', data)
     else:
         api = InstagramAPI(username=username, password=password)
         api.login()        
