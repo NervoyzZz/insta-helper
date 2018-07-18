@@ -223,7 +223,7 @@ def user_followers_like_follow_helper(data, user_id, users_count=25,
         user = random.choice(followers)
         try:
             status = user_like_follow(data, user['pk'], likes_count,
-                                      sleep_time, thresholds)
+                                      thresholds, sleep_time)
             result[user['username']] = status
         except:
             print('ERROR')
