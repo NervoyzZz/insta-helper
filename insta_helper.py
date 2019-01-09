@@ -46,17 +46,18 @@ def main(args):
     if args.estimate == 1:
         estimation = ih.user_estimate(data['api'], data['api'].username_id)
         print('Your estimation:', estimation)
-    print('It\'s like/follow time!')
-    followings = data['api'].getTotalSelfFollowings()
-    user = random.choice(followings)
-    print(user['username'])
-    res = ih.user_followers_like_follow_helper(data, user['pk'],
-                                               args.user_count,
-                                               args.likes_count,
-                                               (args.min_estimate,
-                                                args.max_estimate))
-    print(res)
-            
+    if not args.no_like_follow:
+        print('It\'s like/follow time!')
+        followings = data['api'].getTotalSelfFollowings()
+        user = random.choice(followings)
+        print(user['username'])
+        res = ih.user_followers_like_follow_helper(data, user['pk'],
+                                                   args.user_count,
+                                                   args.likes_count,
+                                                   (args.min_estimate,
+                                                    args.max_estimate))
+        print(res)
+                
 
 
 if __name__ == '__main__':
@@ -72,6 +73,8 @@ if __name__ == '__main__':
     parser.add_argument('--estimate', help='0 or 1. Estimation of your'
                         ' profile (fraction followings/followers)',
                         type=int, default=0)
+    parser.add_argument('--no_like_follow', help='Flag to not like and follow',
+                        action='store_true')
     parser.add_argument('--user_count', help='How many users like and'
                         ' follow', type=int, default=25)
     parser.add_argument('---likes_count', help='How many likes give'
