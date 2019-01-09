@@ -1,8 +1,0 @@
-# PyCharm
-.idea/
-
-# pyc files
-*.pyc
-
-# files from script
-*.api
