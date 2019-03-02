@@ -40,10 +40,10 @@ def main(args):
          password = args.password if args.password != '' else input(
              'Password [> ')
          data = ih.open_api(username, password)
-    if args.unfollow == 1:
+    if args.unfollow:
         not_follows = ih.unfollow_not_followers(data['api'])
         print(not_follows)
-    if args.estimate == 1:
+    if args.estimate:
         estimation = ih.user_estimate(data['api'], data['api'].username_id)
         print('Your estimation:', estimation)
     if not args.no_like_follow:
@@ -68,11 +68,11 @@ if __name__ == '__main__':
                     'profile boosting.')
     parser.add_argument('--username', help='your username', default='')
     parser.add_argument('--password', help='your password', default='')
-    parser.add_argument('--unfollow', help='0 to not unfollow and 1 to'
-                        ' unfollow not followers', type=int, default=0)
-    parser.add_argument('--estimate', help='0 or 1. Estimation of your'
+    parser.add_argument('--unfollow', help='Flag to unfollow not followers',
+                        action='store_true')
+    parser.add_argument('--estimate', help='Flag to estimate your'
                         ' profile (fraction followings/followers)',
-                        type=int, default=0)
+                        action='store_true')
     parser.add_argument('--no_like_follow', help='Flag to not like and follow',
                         action='store_true')
     parser.add_argument('--user_count', help='How many users like and'
