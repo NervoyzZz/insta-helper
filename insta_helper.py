@@ -48,21 +48,20 @@ def main(args):
         if should_work or is_work_time:
             if args.unfollow:
                 not_follows = ih.unfollow_not_followers(data['api'])
-                print(not_follows)
+                ih.results_log(not_follows, args.work_on_loop, args.log_file)
             if args.estimate:
                 estimation = ih.user_estimate(data['api'], data['api'].username_id)
-                print('Your estimation:', estimation)
+                ih.results_log('Estimation: ' + str(estimation), args.work_on_loop, args.log_file)
             if not args.no_like_follow:
-                print('It\'s like/follow time!')
                 followings = data['api'].getTotalSelfFollowings()
                 user = random.choice(followings)
-                print(user['username'])
+                ih.results_log(user['username'], args.work_on_loop, args.log_file)
                 res = ih.user_followers_like_follow_helper(data, user['pk'],
                                                            args.user_count,
                                                            args.likes_count,
                                                            (args.min_estimate,
                                                             args.max_estimate))
-                print(res)
+                ih.results_log(res, args.work_on_loop, args.log_file)
             should_work = False
         time.sleep(50)
                 

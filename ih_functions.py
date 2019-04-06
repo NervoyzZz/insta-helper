@@ -230,3 +230,24 @@ def user_followers_like_follow_helper(data, user_id, users_count=25,
     # save data
     save_data(api.username.lower() + '.api', data)    
     return result
+
+
+def results_log(results, to_file=False, file_name=''):
+    """
+    Function to write log information.
+
+    :param results: data to show.
+    :param to_file: flag to write log to file or to the screen.
+    :param file_name: log file name.
+    :return: None
+    """
+    if not to_file:
+        print(results)
+    else:
+        if os.path.exists(file_name):
+            f = open(file_name, 'a')
+        else:
+            f = open(file_name, 'w')
+        f.write(results)
+        f.write('\n')
+        f.close()
