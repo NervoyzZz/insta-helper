@@ -16,12 +16,12 @@ follow other users
 """
 
 import argparse
+import datetime
 import os.path
 import random
+import time
 
 import ih_functions as ih
-
-from InstagramAPI import InstagramAPI
 
 
 def main(args):
@@ -40,23 +40,31 @@ def main(args):
          password = args.password if args.password != '' else input(
              'Password [> ')
          data = ih.open_api(username, password)
-    if args.unfollow:
-        not_follows = ih.unfollow_not_followers(data['api'])
-        print(not_follows)
-    if args.estimate:
-        estimation = ih.user_estimate(data['api'], data['api'].username_id)
-        print('Your estimation:', estimation)
-    if not args.no_like_follow:
-        print('It\'s like/follow time!')
-        followings = data['api'].getTotalSelfFollowings()
-        user = random.choice(followings)
-        print(user['username'])
-        res = ih.user_followers_like_follow_helper(data, user['pk'],
-                                                   args.user_count,
-                                                   args.likes_count,
-                                                   (args.min_estimate,
-                                                    args.max_estimate))
-        print(res)
+    should_work = True
+    while should_work or args.work_on_loop:
+        now = datetime.datetime.now()
+        is_work_time = (now.time().hour == args.start_hour and
+                        now.time().minute == args.start_min)
+        if should_work or is_work_time:
+            if args.unfollow:
+                not_follows = ih.unfollow_not_followers(data['api'])
+                print(not_follows)
+            if args.estimate:
+                estimation = ih.user_estimate(data['api'], data['api'].username_id)
+                print('Your estimation:', estimation)
+            if not args.no_like_follow:
+                print('It\'s like/follow time!')
+                followings = data['api'].getTotalSelfFollowings()
+                user = random.choice(followings)
+                print(user['username'])
+                res = ih.user_followers_like_follow_helper(data, user['pk'],
+                                                           args.user_count,
+                                                           args.likes_count,
+                                                           (args.min_estimate,
+                                                            args.max_estimate))
+                print(res)
+            should_work = False
+        time.sleep(50)
                 
 
 if __name__ == '__main__':
