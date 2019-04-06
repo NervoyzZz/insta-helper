@@ -123,11 +123,14 @@ def user_estimate(api, user_id):
 
     :param :api: api param from data dictionary
     :param :user_id: id of user whom we want to estimate
-    :return: fraction of followings/followers. Just a float number
+    :return: tuple of
+        fraction of followings/followers
+        number of followings
+        number of followers
     """
     follower_count = len(api.getTotalFollowers(user_id))
     followings_count = len(api.getTotalFollowings(user_id))
-    return followings_count / follower_count
+    return followings_count / follower_count, followings_count, follower_count
 
 
 def give_likes_to_user(api, user_id, likes_count=10, sleep_time=1):

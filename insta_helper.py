@@ -51,7 +51,10 @@ def main(args):
                 ih.results_log(not_follows, args.work_on_loop, args.log_file)
             if args.estimate:
                 estimation = ih.user_estimate(data['api'], data['api'].username_id)
-                ih.results_log('Estimation: ' + str(estimation), args.work_on_loop, args.log_file)
+                ih.results_log('Estimation: {0}/{1} = {2}'.format(estimation[0],
+                                                                  estimation[1],
+                                                                  estimation[2]),
+                               args.work_on_loop, args.log_file)
             if not args.no_like_follow:
                 followings = data['api'].getTotalSelfFollowings()
                 user = random.choice(followings)
