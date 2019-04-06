@@ -59,7 +59,6 @@ def main(args):
         print(res)
                 
 
-
 if __name__ == '__main__':
     # use parser to get parameters from command line
     parser = argparse.ArgumentParser(
@@ -83,5 +82,12 @@ if __name__ == '__main__':
                         ' for following user', type=float, default=0.7)
     parser.add_argument('--max_estimate', help='max estimation value'
                         ' for following user', type=float, default=1.2)
+    parser.add_argument('--work_on_loop', action='store_true',
+                        help='Flag to continuously working.')
+    parser.add_argument('--start_hour', type=int, default=0,
+                        help='Hour to start helper job.')
+    parser.add_argument('--start_min', type=int, default=0,
+                        help='Minutes to start helper job.')
+    parser.add_argument('--log_file', type=str, default='log_helper.log')
     args = parser.parse_args()
     main(args)
