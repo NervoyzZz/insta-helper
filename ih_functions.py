@@ -180,7 +180,7 @@ def user_like_follow(data, user_id, likes_count=10,
     if user_id in follows:
         return False
     # estimate him
-    estimate = user_estimate(api, user_id)
+    estimate = user_estimate(api, user_id)[0]
     # give him likes anyway
     give_likes_to_user(api, user_id, likes_count, sleep_time)
     # decide to follow him
