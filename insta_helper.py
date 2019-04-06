@@ -44,8 +44,9 @@ def main(args):
     while should_work or args.work_on_loop:
         now = datetime.datetime.now()
         is_work_time = (now.time().hour == args.start_hour and
-                        now.time().minute == args.start_min)
-        if should_work or is_work_time:
+                        now.time().minute == args.start_min or
+                        not args.work_on_loop)
+        if should_work and is_work_time:
             if args.unfollow:
                 not_follows = ih.unfollow_not_followers(data['api'])
                 ih.results_log(not_follows, args.work_on_loop, args.log_file)
