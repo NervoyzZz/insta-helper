@@ -49,7 +49,7 @@ def main(args):
         if should_work and is_work_time:
             if args.unfollow:
                 not_follows = ih.unfollow_not_followers(data['api'])
-                ih.results_log(not_follows, args.work_on_loop, args.log_file)
+                ih.results_log(str(not_follows), args.work_on_loop, args.log_file)
             if args.estimate:
                 estimation = ih.user_estimate(data['api'], data['api'].username_id)
                 ih.results_log('Estimation: {0}/{1} = {2}'.format(estimation[0],
