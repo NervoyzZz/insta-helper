@@ -52,7 +52,7 @@ def main(args):
                 ih.results_log(str(not_follows), args.work_on_loop, args.log_file)
             if args.estimate:
                 estimation = ih.user_estimate(data['api'], data['api'].username_id)
-                ih.results_log('Estimation: {0}/{1} = {2}'.format(estimation[0],
+                ih.results_log('Estimation: {1}/{2} = {0}'.format(estimation[0],
                                                                   estimation[1],
                                                                   estimation[2]),
                                args.work_on_loop, args.log_file)
