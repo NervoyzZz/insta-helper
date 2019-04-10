@@ -66,7 +66,7 @@ def main(args):
                                                            (args.min_estimate,
                                                             args.max_estimate))
                 ih.results_log(res, args.work_on_loop, args.log_file)
-            should_work = False
+            should_work = args.work_on_loop 
         time.sleep(50)
                 
 
